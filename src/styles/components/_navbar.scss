@@ -1,0 +1,62 @@
+.navbar {
+  @include inlineItem;
+  height: 7rem;
+  padding: 1rem;
+  width: 100%;
+  background-color: $primary-white;
+  z-index: 99;
+  box-shadow: 0 0.1rem 3rem rgba($primary-dark, 0.1);
+  font-size: $default-font-size;
+
+  &__right {
+    display: flex;
+    align-items: center;
+    color: $secondary-dark;
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      transition: 0.2s ease;
+      border-radius: 5.5rem;
+      padding: 1rem;
+      cursor: pointer;
+
+      img {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        margin-left: 1rem;
+      }
+
+      &:hover {
+        background-color: $secondary-pink;
+        color: $primary-pink;
+      }
+    }
+
+    .fa {
+      transition: 0.2s ease;
+      font-weight: 900;
+      padding-right: 2rem;
+
+      &-cog {
+        color: $primary-pink-darker;
+      }
+      &:before {
+        padding: 1.3rem;
+        width: 3rem;
+        cursor: pointer;
+      }
+      &:hover {
+        color: $primary-pink-darker;
+        &:before {
+          background-color: $secondary-pink;
+          padding: 1.3rem;
+          width: 3rem;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

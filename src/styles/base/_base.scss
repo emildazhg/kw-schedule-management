@@ -1,0 +1,59 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+
+  @include respond(tab-land) {
+    font-size: 56.25%;
+  }
+
+  @include respond(tab-port) {
+    font-size: 50%;
+  }
+
+  @include respond(big-desktop) {
+    font-size: 75%;
+  }
+}
+
+body {
+  box-sizing: border-box;
+  background-color: $secondary-white;
+  @include respond(tab-port) {
+    padding: 0;
+  }
+}
+
+.main {
+  display: flex;
+  font-size: $default-font-size;
+  transition: 0.2s ease;
+  &-body {
+    position: absolute;
+    left: 27rem;
+    top: 8rem;
+    &-expand {
+      position: absolute;
+      top: 8rem;
+      left: 8rem;
+      transition: 0.2s ease;
+    }
+  }
+}
+
+.border {
+  width: 100%;
+  margin: 2rem 0;
+  border-bottom: 0.1rem solid $secondary-white;
+}
+
+.form-control {
+  height: 4rem;
+  font-size: $default-font-size;
+}

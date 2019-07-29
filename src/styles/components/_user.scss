@@ -1,0 +1,69 @@
+.user {
+  position: absolute;
+  top: 7rem;
+  right: 7rem;
+  height: 25rem;
+  width: 20rem;
+  background-color: $primary-white;
+  z-index: 100;
+  animation: moveInBottom 1s;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 0.1rem 3rem rgba($primary-dark, 0.1);
+
+  &__header {
+    position: relative;
+    height: 27%;
+    background-color: $primary-dark;
+    img {
+      position: absolute;
+      top: 4rem;
+      left: 1rem;
+      width: 5rem;
+      height: 5rem;
+      border-radius: 50%;
+    }
+    &__name {
+      color: $secondary-white;
+      position: absolute;
+      top: 4rem;
+      left: 7rem;
+      font-size: $default-font-size;
+    }
+    &__position {
+      color: $secondary-dark;
+      position: absolute;
+      top: 7rem;
+      left: 7rem;
+      font-size: 1.2rem;
+    }
+  }
+
+  &__body {
+    position: absolute;
+    top: 10rem;
+    font-size: 1.2rem;
+    color: $secondary-dark;
+    &__item {
+      padding: 0.5rem 2rem;
+      cursor: pointer;
+      width: 100vh;
+      .fa {
+        width: 3rem;
+      }
+
+      &:hover {
+        background-color: $secondary-white;
+        color: $primary-pink-darker;
+      }
+    }
+  }
+
+  &__footer {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    padding-bottom: 1.5rem;
+    transform: translateX(-50%);
+  }
+}

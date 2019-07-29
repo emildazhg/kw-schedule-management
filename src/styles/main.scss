@@ -1,0 +1,20 @@
+@import "abstracts/variables";
+@import "abstracts/mixins";
+
+@import "base/typography";
+@import "base/base";
+@import "base/utilities";
+@import "base/animations";
+
+@import "components/sidebar";
+@import "components/navbar";
+@import "components/searchbar";
+@import "components/user";
+@import "components/button";
+@import "components/modal";
+@import "components/event-list";
+
+@import "pages/schedule";
+
+@import "~@fullcalendar/core/main.css";
+@import "~@fullcalendar/daygrid/main.css";

@@ -1,0 +1,31 @@
+.fc {
+  &-content,
+  &-event {
+    text-align: center;
+    font-size: 1.2rem;
+    border: none;
+    height: 2rem;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    padding: 0.2rem;
+  }
+}
+
+.urgent {
+  &__important {
+    background-color: $primary-pink-darker;
+  }
+  &__not-important {
+    background-color: $primary-yellow;
+  }
+}
+
+.not-urgent {
+  &__important {
+    background-color: $primary-blue;
+  }
+  &__not-important {
+    background-color: $secondary-dark;
+  }
+}

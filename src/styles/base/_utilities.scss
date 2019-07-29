@@ -1,0 +1,20 @@
+.u-padding-right-small {
+  padding-right: 1.5rem !important;
+}
+
+.navActive {
+  background-color: $secondary-pink;
+  color: $primary-pink;
+}
+
+.u-margin-bottom-small {
+  margin-bottom: 1.5rem !important;
+}
+
+.u-margin-bottom-medium {
+  margin-bottom: 4rem !important;
+
+  @include respond(tab-port) {
+    margin-bottom: 3rem !important;
+  }
+}

@@ -1,0 +1,46 @@
+.button {
+  @include centerItem;
+  border-radius: 0.5rem;
+  transition: all 0.3s;
+  cursor: pointer;
+
+  .fa {
+    padding-right: 1.5rem;
+  }
+
+  &-signout {
+    color: $primary-pink;
+    background-color: $secondary-pink;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    &:hover {
+      background-color: $primary-pink;
+      color: $primary-white;
+    }
+  }
+
+  &-add {
+    box-shadow: 0 0.4rem 1rem rgba($primary-dark, 0.5);
+    background-color: $primary-dark;
+    color: $primary-white;
+    height: 4rem;
+    margin: 1rem;
+    width: 90%;
+
+    &:hover {
+      background-color: $primary-darker;
+    }
+  }
+
+  &-cancel {
+    background-color: $secondary-white;
+    color: $primary-dark;
+    height: 4rem;
+    margin: 1rem;
+    width: 90%;
+
+    &:hover {
+      background-color: $tertiary-white;
+    }
+  }
+}
