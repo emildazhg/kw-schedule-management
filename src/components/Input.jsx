@@ -7,8 +7,7 @@ const Input = ({
   label,
   placeholder,
   type,
-  meta: { touched, error },
-  onChange
+  meta: { touched, error }
 }) => {
   return (
     <React.Fragment>

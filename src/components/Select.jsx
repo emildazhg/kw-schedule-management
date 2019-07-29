@@ -2,10 +2,7 @@ import React from "react";
 
 const Select = ({ classInput, options, id, label, input }) => {
   const renderOption = options.map(option => (
-    <option key={option.id}>
-      {console.log(input)}
-      {option.category}
-    </option>
+    <option key={option.id}>{option.category}</option>
   ));
 
   return (

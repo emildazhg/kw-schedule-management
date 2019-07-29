@@ -1,18 +1,19 @@
-import React, * as react from "react";
+import React, { Component } from "react";
+import { Field, reduxForm, formValueSelector } from "redux-form";
+import { connect } from "react-redux";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
-import { Field, reduxForm, formValueSelector } from "redux-form";
-import { connect } from "react-redux";
-import { getEventLists, addEvents } from "redux/action/eventsAction";
-import { getEventCategories } from "redux/action/categoriesAction";
 import Modal from "components/Modal";
 import Input from "components/Input";
 import Select from "components/Select";
+import EventList from "components/EventList";
+import { getEventCategories } from "redux/action/categoriesAction";
+import { getEventLists, addEvents } from "redux/action/eventsAction";
 import { required } from "utils/form-validation";
 
-class Schedule extends react.Component {
+class Schedule extends Component {
   componentDidMount() {
     this.props.getEventLists();
     this.props.getEventCategories();
@@ -37,9 +38,11 @@ class Schedule extends react.Component {
     );
   };
 
-  onSubmit = () => {
+  onSubmit = e => {
     const result = this.renderFilter(this.props.myValues.category);
-    this.props.addEvents(this.props.myValues, result[0]);
+    result[0]
+      ? this.props.addEvents(this.props.myValues, result[0])
+      : e.preventDefault();
   };
 
   render() {
@@ -95,19 +98,7 @@ class Schedule extends react.Component {
           <div className="border" />
           *drag and drop the event to the calender
           {events.map(event => (
-            <div
-              key={event.id}
-              className={`schedule__main__event__item ${event.classNames}`}
-            >
-              <div
-                className={`event-list ${event.classNames}`}
-                title={event.title}
-                data={event.id}
-                id="event"
-              >
-                {event.title}
-              </div>
-            </div>
+            <EventList key={event.id} event={event} />
           ))}
         </div>
 
