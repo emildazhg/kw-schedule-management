@@ -1,17 +1,18 @@
 import React, { Component } from "react";
-import { Field, reduxForm, formValueSelector } from "redux-form";
+import { Field, reduxForm, formValueSelector, reset } from "redux-form";
 import { connect } from "react-redux";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
-import Modal from "components/Modal";
 import Input from "components/Input";
 import Select from "components/Select";
 import EventList from "components/EventList";
 import { getEventCategories } from "redux/action/categoriesAction";
 import { getEventLists, addEvents } from "redux/action/eventsAction";
 import { required } from "utils/form-validation";
+import ModalContent from "components/ModalContent";
+import Datepicker from "components/Datepicker";
 
 class Schedule extends Component {
   componentDidMount() {
@@ -33,30 +34,35 @@ class Schedule extends Component {
   }
 
   renderFilter = value => {
-    return this.props.categories.filter(category =>
-      category.category === value ? category.classNames : ""
+    return this.props.categories.filter(
+      category => category.category === value
     );
   };
 
   onSubmit = e => {
-    const result = this.renderFilter(this.props.myValues.category);
-    result[0]
-      ? this.props.addEvents(this.props.myValues, result[0])
+    const { myValues, addEvents, toggleModal, reset, ModalStatus } = this.props;
+    const result = this.renderFilter(myValues.category);
+    result && this.props.valid
+      ? addEvents(myValues, result[0] || { classNames: "urgent__important" }, {
+          startDate: ModalStatus.dateStr || null
+        }).then(toggleModal(), reset("addEventForm"))
       : e.preventDefault();
   };
 
   render() {
-    const modalProps = (
-      <div className="button button-add">
-        <i className="fa fa-plus" />
-        Add New Event
-      </div>
-    );
+    const {
+      events,
+      ModalStatus,
+      toggleModal,
+      handleSubmit,
+      categories,
+      toggleModalDate
+    } = this.props;
 
     const modalContent = {
       header: "Add New Event",
       body: (
-        <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+        <form onSubmit={handleSubmit(this.onSubmit)}>
           <Field
             classInput="form-control"
             name="title"
@@ -67,6 +73,18 @@ class Schedule extends Component {
             id="eventTitle"
             validate={[required]}
           />
+          {!ModalStatus.date && (
+            <Field
+              classInput="form-control"
+              name="start"
+              label="Date"
+              date={ModalStatus}
+              component={Datepicker}
+              type="date"
+              id="eventDate"
+              validate={[required]}
+            />
+          )}
           <Field
             classInput="form-control"
             name="category"
@@ -74,28 +92,26 @@ class Schedule extends Component {
             component={Select}
             placeholder="Drinking coffee..."
             id="category"
-            options={this.props.categories}
+            options={categories}
           />
         </form>
       )
     };
 
     const additionalButton = (
-      <div className="button button-add" type="submit" onClick={this.onSubmit}>
+      <div className="button button-add" onClick={this.onSubmit}>
         Confirm
       </div>
     );
 
-    const { events } = this.props;
     return (
       <div className="schedule__main">
         <div className="schedule__main__event" id="external-events">
-          <Modal
-            modalProps={modalProps}
-            modalContent={modalContent}
-            additionalButton={additionalButton}
-          />
           <div className="border" />
+          <div className="button button-add" onClick={toggleModal}>
+            <i className="fa fa-plus" />
+            Add New Event
+          </div>
           *drag and drop the event to the calender
           {events.map(event => (
             <EventList key={event.id} event={event} />
@@ -109,16 +125,22 @@ class Schedule extends Component {
               center: "title",
               right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
             }}
-            rerenderDelay={10}
             editable={true}
             selectable={true}
             droppable={true}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             events={events}
-            eventClick={this.handleEventClick}
-            dateClick={this.handleClick}
+            eventClick={this.handleClick}
+            dateClick={toggleModalDate}
           />
         </div>
+        {ModalStatus && (
+          <ModalContent
+            onClose={toggleModal}
+            content={modalContent}
+            additionalButton={additionalButton}
+          />
+        )}
       </div>
     );
   }
@@ -130,15 +152,19 @@ const mapStateToProps = state => {
   return {
     events: state.events,
     categories: state.categories,
-    myValues: selector(state, "title", "category")
+    myValues: selector(state, "title", "category", "start"),
+    ModalStatus: state.modal
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    addEvents: (form, data) => dispatch(addEvents(form, data)),
+    addEvents: (form, data, date) => dispatch(addEvents(form, data, date)),
     getEventLists: () => dispatch(getEventLists()),
-    getEventCategories: () => dispatch(getEventCategories())
+    getEventCategories: () => dispatch(getEventCategories()),
+    toggleModal: () => dispatch({ type: "TOGGLE_MODAL" }),
+    toggleModalDate: arg => dispatch({ type: "TOGGLE_MODAL_DATE", arg }),
+    reset: formName => dispatch(reset(formName))
   };
 };
 

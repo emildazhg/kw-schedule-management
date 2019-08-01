@@ -1,5 +1,6 @@
 import React from "react";
-const Input = ({
+
+const Datepicker = ({
   input,
   classInput,
   classLabel,
@@ -7,6 +8,7 @@ const Input = ({
   label,
   placeholder,
   type,
+  date,
   meta: { touched, error }
 }) => {
   return (
@@ -27,4 +29,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default Datepicker;

@@ -1,6 +1,6 @@
 .button {
   @include centerItem;
-  border-radius: 0.5rem;
+  border-radius: 0.5rem !important;
   transition: all 0.3s;
   cursor: pointer;
 

@@ -5,13 +5,16 @@ export const getEventLists = () => async dispatch => {
   dispatch({ type: "GET_EVENT_LIST", payload: data });
 };
 
-export const addEvents = (form, value) => async dispatch => {
-  const { category, title } = form;
+export const addEvents = (form, value, date) => async dispatch => {
+  const { category, title, start } = form;
   const { classNames } = value;
+  const { startDate } = date;
+
   const { data } = await jsonPlaceholder.post("/events", {
     title,
     category,
-    classNames
+    classNames,
+    start: startDate || start
   });
   dispatch({ type: "ADD_EVENT", payload: data });
 };
