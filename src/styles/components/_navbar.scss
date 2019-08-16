@@ -42,13 +42,16 @@
       &-cog {
         color: $primary-pink-darker;
       }
+
       &:before {
         padding: 1.3rem;
         width: 3rem;
         cursor: pointer;
       }
+
       &:hover {
         color: $primary-pink-darker;
+
         &:before {
           background-color: $secondary-pink;
           padding: 1.3rem;

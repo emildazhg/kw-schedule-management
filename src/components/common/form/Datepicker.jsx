@@ -2,27 +2,16 @@ import React from "react";
 
 const Datepicker = ({
   input,
-  classInput,
-  classLabel,
-  id,
+  className,
   label,
-  placeholder,
   type,
   date,
   meta: { touched, error }
 }) => {
   return (
     <React.Fragment>
-      <label className={classLabel} htmlFor={id}>
-        {label}
-      </label>
-      <input
-        {...input}
-        className={classInput}
-        type={type}
-        id={id}
-        placeholder={placeholder}
-      />
+      <label>{label}</label>
+      <input {...input} className={className} type={type} />
       {touched && (error && <span className="text-danger">*{error}</span>)}
       <br />
     </React.Fragment>

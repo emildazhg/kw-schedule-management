@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-import Sidebar from "components/Sidebar";
-import Navbar from "components/Navbar";
-import Schedule from "components/Schedule";
-import Todo from "components/Todo";
-import DailyQuotes from "components/DailyQuotes";
-import GratitudeBoard from "components/GratitudeBoard";
+import Sidebar from "components/common/sidebar/Sidebar";
+import Navbar from "components/common/navbar/Navbar";
+import EventForm from "components/pages/schedule/EventForm";
+import GratitudeBoard from "pages/GratitudePage";
+import DailyQuotes from "pages/DailyQuotesPage";
+import Schedule from "pages/SchedulePage";
+import Todo from "pages/TodoPage";
 
 class MainPage extends Component {
   state = {
@@ -33,6 +34,8 @@ class MainPage extends Component {
         <Navbar />
         <div className={content}>
           <Switch>
+            <Route path="/schedule/add" component={EventForm} />
+            <Route path="/schedule/:id/edit" component={EventForm} />
             <Route path="/schedule" component={Schedule} />
             <Route path="/todo-list" component={Todo} />
             <Route path="/daily-quotes" component={DailyQuotes} />

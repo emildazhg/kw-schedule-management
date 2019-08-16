@@ -1,14 +1,14 @@
 import React from "react";
 
-const Select = ({ classInput, options, id, label, input }) => {
+const Select = ({ className, options, label, input }) => {
   const renderOption = options.map(option => (
     <option key={option.id}>{option.category}</option>
   ));
 
   return (
     <React.Fragment>
-      <label htmlFor={id}>{label}</label>
-      <select {...input} className={classInput} id={id}>
+      <label>{label}</label>
+      <select {...input} className={className}>
         {renderOption}
       </select>
       <br />

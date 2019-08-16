@@ -1,10 +1,16 @@
-export default (eventLists = [], action) => {
+export default (state = [], action) => {
+  const { payload } = action;
   switch (action.type) {
-    case "GET_EVENT_LIST":
+    case "FETCH_EVENTS":
       return action.payload;
-    case "ADD_EVENT":
-      return [...eventLists, action.payload];
+    case "CREATE_EVENT":
+      return {
+        ...state,
+        payload
+      };
+    case "UPDATE_EVENT":
+      return { ...state, [payload.id]: payload };
     default:
-      return eventLists;
+      return state;
   }
 };
