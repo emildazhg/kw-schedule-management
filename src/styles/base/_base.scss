@@ -57,3 +57,13 @@ body {
   height: 4rem;
   font-size: $default-font-size;
 }
+
+.a {
+  text-decoration: none;
+  color: $primary-white;
+  &:hover {
+    color: $primary-white !important;
+    outline: none !important;
+    text-decoration: none !important;
+  }
+}

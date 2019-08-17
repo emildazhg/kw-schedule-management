@@ -1,11 +1,17 @@
 .button {
   @include centerItem;
-  border-radius: 0.5rem;
+  border-radius: 0.5rem !important;
+  border: none;
   transition: all 0.3s;
   cursor: pointer;
 
-  .fa {
-    padding-right: 1.5rem;
+  &:link,
+  &:visited,
+  &:hover {
+    outline: none;
+    color: $primary-white;
+    outline: none;
+    text-decoration: none;
   }
 
   &-signout {
@@ -25,8 +31,10 @@
     color: $primary-white;
     height: 4rem;
     margin: 1rem;
-    width: 90%;
-
+    padding: 0 2rem;
+    .fa {
+      margin-right: 1rem;
+    }
     &:hover {
       background-color: $primary-darker;
     }
@@ -37,10 +45,45 @@
     color: $primary-dark;
     height: 4rem;
     margin: 1rem;
-    width: 90%;
 
     &:hover {
       background-color: $tertiary-white;
+    }
+
+    a {
+      color: $primary-white;
+      outline: none;
+      text-decoration: none;
+      padding: 0 2rem;
+    }
+  }
+  &-sign-in {
+    color: $primary-pink;
+    background-color: $secondary-pink;
+    height: 4rem;
+    margin: 1rem;
+    padding: 0 2rem;
+
+    &:hover {
+      background-color: $primary-pink;
+      color: $primary-white;
+    }
+  }
+
+  &-danger {
+    color: $primary-pink;
+    background-color: $primary-white;
+    border: 0.1rem solid $primary-pink;
+    height: 4rem;
+    margin: 1rem;
+    padding: 0 2rem;
+
+    .fa {
+      margin-left: 0;
+    }
+    &:hover {
+      background-color: $primary-pink;
+      color: $primary-white;
     }
   }
 }

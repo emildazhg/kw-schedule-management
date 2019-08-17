@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-import Login from "components/Login";
+import Login from "pages/LoginPage";
 import MainPage from "pages/MainPage";
 import "bootstrap/dist/css/bootstrap.css";
 import "styles/main.scss";

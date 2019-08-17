@@ -1,10 +1,23 @@
-export default (eventLists = [], action) => {
+export default (
+  state = {
+    eventList: [],
+    event: {}
+  },
+  action
+) => {
   switch (action.type) {
-    case "GET_EVENT_LIST":
-      return action.payload;
-    case "ADD_EVENT":
-      return [...eventLists, action.payload];
+    case "FETCH_EVENTS":
+      return { ...state, eventList: [...action.payload] };
+    case "CREATE_EVENT":
+      return {
+        ...state,
+        eventList: [...state.eventList, action.payload]
+      };
+    case "UPDATE_EVENT":
+      return state;
+    case "FETCH_EVENT_BY_ID":
+      return { ...state, event: { ...action.payload } };
     default:
-      return eventLists;
+      return state;
   }
 };

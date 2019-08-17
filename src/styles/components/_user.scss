@@ -3,7 +3,7 @@
   top: 7rem;
   right: 7rem;
   height: 25rem;
-  width: 20rem;
+  width: 21rem;
   background-color: $primary-white;
   z-index: 100;
   animation: moveInBottom 1s;
@@ -15,6 +15,7 @@
     position: relative;
     height: 27%;
     background-color: $primary-dark;
+
     img {
       position: absolute;
       top: 4rem;
@@ -23,6 +24,7 @@
       height: 5rem;
       border-radius: 50%;
     }
+
     &__name {
       color: $secondary-white;
       position: absolute;
@@ -30,7 +32,8 @@
       left: 7rem;
       font-size: $default-font-size;
     }
-    &__position {
+
+    &__email {
       color: $secondary-dark;
       position: absolute;
       top: 7rem;
@@ -44,10 +47,12 @@
     top: 10rem;
     font-size: 1.2rem;
     color: $secondary-dark;
+
     &__item {
       padding: 0.5rem 2rem;
       cursor: pointer;
       width: 100vh;
+
       .fa {
         width: 3rem;
       }

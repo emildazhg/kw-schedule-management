@@ -1,0 +1,35 @@
+.form {
+  background-color: $primary-white;
+  padding: 3rem;
+  margin: 2rem;
+  border-radius: 1rem;
+  width: 50rem;
+  height: 100%;
+
+  &__header {
+    @include inlineItem;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 0.1rem solid $tertiary-white;
+  }
+
+  &__footer {
+    display: contents;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &-control {
+    &::-webkit-inner-spin-button {
+      display: none;
+      -webkit-appearance: none;
+    }
+    &::-webkit-calendar-picker-indicator {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+  }
+}

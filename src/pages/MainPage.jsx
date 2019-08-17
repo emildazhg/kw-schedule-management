@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-import Sidebar from "components/Sidebar";
-import Navbar from "components/Navbar";
-import Schedule from "components/Schedule";
-import Todo from "components/Todo";
-import DailyQuotes from "components/DailyQuotes";
-import GratitudeBoard from "components/GratitudeBoard";
+import Sidebar from "components/common/sidebar/Sidebar";
+import Navbar from "components/common/navbar/Navbar";
+import EventForm from "components/pages/schedule/EventForm";
+import GratitudeBoard from "pages/GratitudePage";
+import DailyQuotes from "pages/DailyQuotesPage";
+import Schedule from "pages/SchedulePage";
+import Todo from "pages/TodoPage";
+import history from "utils/history";
 
 class MainPage extends Component {
   state = {
@@ -32,8 +34,10 @@ class MainPage extends Component {
         <Sidebar status={sidebar} handleToggle={this.handleToggle} />
         <Navbar />
         <div className={content}>
-          <Switch>
-            <Route path="/schedule" component={Schedule} />
+          <Switch history={history}>
+            <Route path="/schedule" exact component={Schedule} />
+            <Route path="/schedule/add" exact component={EventForm} />
+            <Route path="/schedule/:id/edit" exact component={EventForm} />
             <Route path="/todo-list" component={Todo} />
             <Route path="/daily-quotes" component={DailyQuotes} />
             <Route path="/gratitude-board" component={GratitudeBoard} />

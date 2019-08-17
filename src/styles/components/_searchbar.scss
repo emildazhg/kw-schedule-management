@@ -1,5 +1,6 @@
 .searchbar {
   padding-left: 1rem;
+
   input {
     padding: 1rem;
     height: 3rem;
@@ -7,6 +8,7 @@
     border: none;
     border-bottom: 0.2rem solid $primary-dark;
     transition: all 0.1s;
+
     &:focus {
       + button {
         transform: scale(1.3);

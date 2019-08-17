@@ -31,6 +31,7 @@
 
     .active {
       background-color: $primary-darker;
+
       .fa {
         color: $primary-pink;
       }
@@ -52,6 +53,7 @@
 
     &__initial {
       display: inline-block;
+
       .fa {
         &,
         &:link,
@@ -102,6 +104,7 @@
   &__item:hover,
   .active {
     background-color: $primary-darker;
+
     .fa {
       color: $primary-pink;
     }
