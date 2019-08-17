@@ -7,6 +7,7 @@ import GratitudeBoard from "pages/GratitudePage";
 import DailyQuotes from "pages/DailyQuotesPage";
 import Schedule from "pages/SchedulePage";
 import Todo from "pages/TodoPage";
+import history from "utils/history";
 
 class MainPage extends Component {
   state = {
@@ -33,10 +34,10 @@ class MainPage extends Component {
         <Sidebar status={sidebar} handleToggle={this.handleToggle} />
         <Navbar />
         <div className={content}>
-          <Switch>
-            <Route path="/schedule/add" component={EventForm} />
-            <Route path="/schedule/:id/edit" component={EventForm} />
-            <Route path="/schedule" component={Schedule} />
+          <Switch history={history}>
+            <Route path="/schedule" exact component={Schedule} />
+            <Route path="/schedule/add" exact component={EventForm} />
+            <Route path="/schedule/:id/edit" exact component={EventForm} />
             <Route path="/todo-list" component={Todo} />
             <Route path="/daily-quotes" component={DailyQuotes} />
             <Route path="/gratitude-board" component={GratitudeBoard} />

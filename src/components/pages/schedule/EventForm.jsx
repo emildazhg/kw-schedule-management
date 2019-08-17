@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Field, reduxForm, reset } from "redux-form";
-import { addEvents } from "redux/action/eventsAction";
+import {
+  addEvents,
+  getEventById,
+  updateEvent,
+  deleteEvent
+} from "redux/action/eventsAction";
 import { getEventCategories } from "redux/action/categoriesAction";
 import { required } from "utils/form-validation";
 import Input from "components/common/form/Input";
@@ -12,7 +17,11 @@ import Datepicker from "components/common/form/Datepicker";
 class EventForm extends Component {
   componentDidMount() {
     this.props.getEventCategories();
-    console.log(this.props);
+    if (this.props.match.params.id) {
+      this.props
+        .getEventById(this.props.match.params.id)
+        .then(() => this.props.initialize(this.props.event));
+    }
   }
 
   renderFilter = value => {
@@ -27,23 +36,34 @@ class EventForm extends Component {
     }
     return {
       category: "Urgent and Important",
-      classNames: "urgent__and__important"
+      classNames: "urgent__important"
     };
   };
 
+  handleDelete = () => {
+    this.props.deleteEvent(this.props.match.params.id);
+  };
+
   onSubmit = formValues => {
-    const { addEvents, reset, history } = this.props;
+    const { addEvents, reset, match, updateEvent } = this.props;
     const result = this.renderFilter(formValues.category);
     const { category, classNames } = this.renderClassType(result);
     const formFinal = { ...formValues, category, classNames };
-    addEvents(formFinal).then(reset("addEventForm", history.push("/schedule")));
+    match.path === "/schedule/add"
+      ? addEvents(formFinal).then(reset("addEventForm"))
+      : updateEvent(match.params.id, formFinal).then(reset("addEventForm"));
   };
   render() {
     const { handleSubmit, categories } = this.props;
 
     return (
       <div className="form">
-        <div className="form__header">Add Event</div>
+        <div className="form__header">
+          <div>Add Event</div>
+          <button className="button button-danger" onClick={this.handleDelete}>
+            <i className="fa fa-trash-o" />
+          </button>
+        </div>
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <Field
             className="form-control"
@@ -103,16 +123,19 @@ class EventForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    initialValues: state.events.event,
+    event: state.events.event,
     categories: state.categories
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    addEvents: (form, data, date) => dispatch(addEvents(form, data, date)),
+    addEvents: form => dispatch(addEvents(form)),
     reset: formName => dispatch(reset(formName)),
-    getEventCategories: () => dispatch(getEventCategories())
+    getEventCategories: () => dispatch(getEventCategories()),
+    getEventById: id => dispatch(getEventById(id)),
+    deleteEvent: id => dispatch(deleteEvent(id)),
+    updateEvent: (id, form) => dispatch(updateEvent(id, form))
   };
 };
 

@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 import { getEventLists } from "redux/action/eventsAction";
 import EventList from "components/pages/schedule/EventList";
-import EventForm from "components/pages/schedule/EventForm";
 
 class Schedule extends Component {
   componentDidMount() {
@@ -28,8 +27,9 @@ class Schedule extends Component {
   }
 
   handleEventClick = arg => {
-    this.props.history.push("/schedule/add", { state: arg });
+    this.props.handleEventClick(arg.event._def.publicId);
   };
+
   render() {
     const { events } = this.props;
     return (
@@ -37,15 +37,14 @@ class Schedule extends Component {
         <div className="schedule__main__event" id="external-events">
           <div className="border" />
           <Link className="button button-add" to="/schedule/add">
-            <i className="fa fa-plus" />
-            Add New Event
+            <i className="fa fa-plus" /> Add New Event
           </Link>
           *drag and drop the event to the calender
           {events.map(event => (
             <EventList key={event.id} event={event} />
           ))}
         </div>
-        <div className="schedule__main__calender" id="">
+        <div className="schedule__main__calender">
           <FullCalendar
             header={{
               left: "prev,next today",
@@ -68,13 +67,14 @@ class Schedule extends Component {
 
 const mapStateToProps = state => {
   return {
-    events: Object.values(state.events)
+    events: state.events.eventList
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getEventLists: () => dispatch(getEventLists())
+    getEventLists: () => dispatch(getEventLists()),
+    handleEventClick: id => ownProps.history.push(`/schedule/${id}/edit`)
   };
 };
 
